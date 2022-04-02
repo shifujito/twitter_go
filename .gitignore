@@ -1,5 +1,7 @@
 # db
 db/data
+# server
+server/tmp/
 # Binaries for programs and plugins
 *.exe
 *.exe~
