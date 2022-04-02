@@ -1,0 +1,37 @@
+# docker-composeのversion
+version: '3.7'
+
+# 各コンテナの情報
+services:
+  twitter_go:
+    container_name: twitter_go
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    tty: true
+    volumes:
+      - ./server:/go/src/app/server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "twitter_db"
+
+  twitter_db:
+    container_name: twitter_db
+    # dockerfileのディレクトりパス
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
+    # postgresの設定
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=password
+    tty: true
+    volumes:
+      - ~/docker/postgres:/var/lib/postgresql/data
+    expose:
+      - 5432
+
+
+
